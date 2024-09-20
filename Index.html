@@ -2,206 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Dynamic Input Fields</title>
-    <link rel='stylesheet' href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel='stylesheet' href='../static/styles.css'>
-    <script src="../static/script.js"></script>
+    <title>Index Page</title>
+    <link rel="stylesheet" href="../styling/styles.css">
+    <link rel="stylesheet" href="../styling/login.css">
+
 </head>
 <body>
-
-
-<!-- Main Container -->
-<div class="container">
-        
-<form action="/" method="POST" enctype="multipart/form-data">
-    <div class="container" id="firstDiv">
-
-        <h2>Basic inputs</h2>
-        <input type="text" id="input1" name="input1" placeholder="Name of Subject">
-        <input type="text" id="input2" placeholder="SEM-YEAR">
-        <input type="text" id="input3" placeholder="Name of the Faculty">
-        <input type="number" id="rowCount" name="rowCount" placeholder="No. of Students">
-        <button type="button" onclick="generateRows()">Generate Table</button>
-
-    </div>
-
-    <div>
-        <h2>Threshold setting</h2>
-        <input type="text" id="input5" placeholder="Level 1 Scoring">
-        <input type="text" id="input6" placeholder="Level 2 Scoring">
-        <input type="text" id="input7" placeholder="Level 3 Scoring">
-        <input type="text" id="input8" placeholder="4th input(in excel F11 cell)">
-        
-    </div>
-
-    <div>
-        <h2>Marks table</h2>
-        <table  class="dt" border="1"></table>
-        <div id="rows_container"></div>
-        </table>
-    </div>        
-
-<!-- </form>
-
-<form action="/co" method="POST">    -->
-
-        <div class="container">
-            <h1 class="collapsible-title" onclick="toggleOutcomes()">
-                Course Outcomes 
-                <span class="add-icon" onclick="addOutcome()">+</span>
-            </h1>
-            <div class="outcomes-container">
-                <div class="form-row mt-2">
-                    <div class="form-group col-12">
-                        <span id="outcomesText" style="display: none;">Add Course Outcomes</span>
-                        
-                    </div>
-                    <button type="button" class="print-button" onclick="printOutcomes()">Print Outcomes</button>
-                </div>
+    <header>
+        <nav>
+            <div><a href="index.html">Home</a></div>
+            <div><a href="about.html">About</a></div>
+            <div><a href="services.html">Services</a></div>
+            <div><a href="contact.html">Contact</a></div>
+        </nav>
+    </header>
+    <h1 class="welcome">Welcome to CO-PO Manager</h1>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="login.js" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <div class="button-container">
+                <input type="submit" value="Login">
+                <input type="submit" value="Sign Up" formaction="signup.js">
             </div>
-        </div>
+        </form>
+        <p class="forgot-link">
+            <a href="#" id="forgotPasswordLink">Forgot Login Credentials?</a>
+        </p>
+        
+    </div>
 
-
-
-<div class="container">
-    <h1 class="collapsible-title" onclick="toggleOutcomeTableVisibility()">Course Articulation Matrix</h1>
-    <div class="course-outcomes-container">
-        <div class="form-row mt-2">
-            <div class="form-group col-12">
-                <div id="courseOutcomesContainer" class="new-outcomes-container show">
-                    <script>
-                        function createOutcomeTable(outcomes) {
-                            if (!outcomes || outcomes.length === undefined) {
-                                console.error('Invalid outcomes array:', outcomes);
-                                return;
-                            }
-                    
-                            var container = document.getElementById('courseOutcomesContainer');
-                            container.innerHTML = '';
-                            var table = document.createElement('table');
-                            table.classList.add('table'); 
-                            var headerRow = table.insertRow(0);
-                            headerRow.insertCell(0).textContent = 'Serial Number';
-                            headerRow.insertCell(1).textContent = 'Outcome Description';
-                    
-                            for (let i = 2; i < 16; i++) {
-                                var columnName;
-                                if (i >= 2 && i <= 13) {
-                                    columnName = 'PS ' + (i - 1);
-                                }
-                                else if (i === 14) {
-                                    columnName = 'PS O1';
-                                } else if (i === 15) {
-                                    columnName = 'PS O2';
-                                }
-                                headerRow.insertCell(i).textContent = columnName;
-                    
-                                // for (let j = 1; j <= 6; j++) {
-                                //     const inputName = `ps${i}_${j}`;
-                                //     const inputPlaceholder = `${i}${String.fromCharCode(96 + j)}`;
-                                //     container.innerHTML += `
-                                //         <div>
-                                //             <input type="text" size="3" name="${inputName}" placeholder="${inputPlaceholder}">
-                                //         </div>
-                                //     `;
-                                // }
-                            }
-                    
-                            var numberOfOutcomes = outcomes.length;
-                            for (var row = 1; row <= numberOfOutcomes; row++) {
-                                var outcomeRow = table.insertRow(row);
-                                outcomeRow.insertCell(0).textContent = row;
-                                outcomeRow.insertCell(1).textContent = outcomes[row - 1];
-                                for (var col = 2; col < 16; col++) {
-                                    var inputCell = outcomeRow.insertCell(col);
-                                    var inputField = document.createElement('input');
-                                    inputField.type = 'text';
-                                    inputField.name = `po${row}_${col}`;
-                                    inputField.classList.add('form-control');
-                                    inputCell.appendChild(inputField);
-                                }
-                            }
-                            container.appendChild(table);
-                        }
-                    
-                        document.addEventListener('DOMContentLoaded', function() {
-                            toggleOutcomeTableVisibility();
-                        });
-                    </script>
-                </div>
-            </div>
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">×</span>
+            <h2>Forgot Password</h2>
+            <form action="forgot_password.php" method="post">
+                <label for="email">Enter your email:</label>
+                <input type="email" id="email" name="email" required>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
-    <div class="container mt-3">
-        <h1 class="collapsible-title" onclick="toggleCourseExitSurvey()">Course Exit Survey</h1>
-        <div id="courseExitSurvey" style="display: none;">
-            <table class="table mt-3">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>CO1</th>
-                        <th>CO2</th>
-                        <th>CO3</th>
-                        <th>CO4</th>
-                        <th>CO5</th>
-                        <th>CO6</th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    <tr>
-                        <th>Average of CO in the scale of 5</th>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-
-                    </tr>
-                    <!-- <tr>
-                        <th>Average of CO between 1 - 3</th> 
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-                        <td><input type="text" class="form-control"></td>
-
-                    </tr> -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-    
-
-
-
-
-
-
-<input type="file" id="fileInput" name="file">
-<button onclick="updateAndDownload()" type="submit" >Upload Excel</button>
-<br>
-<div id="status"></div>
-</form>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <footer>
+        © Copyright 2024, SIES GST
+    </footer>    
 </body>
+<script src = script.js></script>
 </html>
